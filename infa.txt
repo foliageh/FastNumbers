@@ -1,0 +1,14 @@
+﻿player_coins = 300
+player_record_super_easy = 9:99:99.999999
+player_record_easy = 9:99:99.999999
+player_record_medium = 9:99:99.999999
+player_record_hard = 9:99:99.999999
+player_record_super_hard = 9:99:99.999999
+player_tema_num = black
+player_tema_bg = white
+player_tema1 = Выбрано
+player_tema2 = Купить!
+player_tema3 = Купить!
+player_tema4 = Купить!
+player_tema5 = Купить!
+player_tema6 = Купить!

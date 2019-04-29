@@ -4,33 +4,34 @@ import sys
 from pygame import mixer
 from datetime import datetime
 from tkinter import *
+
 root = Tk()
 
 roaming = os.getenv('APPDATA')
 path = os.path.dirname(roaming) + '\Local\FastNumbers(beta)'
 try:
-	os.mkdir(path)
+    os.mkdir(path)
 except OSError:
-	print('',end='',sep='')
+    pass
+
 path_inf = path + '\infa.txt'
-if os.path.isfile(path_inf):
-	print('',end='',sep='')
-else:
-	with open(path_inf, 'w', encoding='utf-8') as f:
-		f.write('player_coins = 300\n')
-		f.write('player_record_super_easy = 9:99:99.999999\n')
-		f.write('player_record_easy = 9:99:99.999999\n')
-		f.write('player_record_medium = 9:99:99.999999\n')
-		f.write('player_record_hard = 9:99:99.999999\n')
-		f.write('player_record_super_hard = 9:99:99.999999\n')
-		f.write('player_tema_num = black\n')
-		f.write('player_tema_bg = white\n')
-		f.write('player_tema1 = Выбрано\n')
-		f.write('player_tema2 = Купить!\n')
-		f.write('player_tema3 = Купить!\n')
-		f.write('player_tema4 = Купить!\n')
-		f.write('player_tema5 = Купить!\n')
-		f.write('player_tema6 = Купить!\n')
+if not os.path.isfile(path_inf):
+    with open(path_inf, 'w', encoding='utf-8') as f:
+        f.write('player_coins = 300\n')
+        f.write('player_record_super_easy = 9:99:99.999999\n')
+        f.write('player_record_easy = 9:99:99.999999\n')
+        f.write('player_record_medium = 9:99:99.999999\n')
+        f.write('player_record_hard = 9:99:99.999999\n')
+        f.write('player_record_super_hard = 9:99:99.999999\n')
+        f.write('player_tema_num = black\n')
+        f.write('player_tema_bg = white\n')
+        f.write('player_tema1 = Выбрано\n')
+        f.write('player_tema2 = Купить!\n')
+        f.write('player_tema3 = Купить!\n')
+        f.write('player_tema4 = Купить!\n')
+        f.write('player_tema5 = Купить!\n')
+        f.write('player_tema6 = Купить!\n')
+
 
 def resource_path(relative_path):
     try:
@@ -75,20 +76,20 @@ mixer.init()
 
 def save_param():
     with open(path_inf, 'w') as f:
-        f.write('player_coins = '+ str(player_coins) + '\n')
-        f.write('player_record_super_easy = '+ player_record_super_easy + '\n')
-        f.write('player_record_easy = '+ player_record_easy + '\n')
-        f.write('player_record_medium = '+ player_record_medium + '\n')
-        f.write('player_record_hard = '+ player_record_hard + '\n')
-        f.write('player_record_super_hard = '+ player_record_super_hard + '\n')
-        f.write('player_tema_num = '+ player_tema_num + '\n')
-        f.write('player_tema_bg = '+ player_tema_bg + '\n')
-        f.write('player_tema1 = '+ player_tema1 + '\n')
-        f.write('player_tema2 = '+ player_tema2 + '\n')
-        f.write('player_tema3 = '+ player_tema3 + '\n')
-        f.write('player_tema4 = '+ player_tema4 + '\n')
-        f.write('player_tema5 = '+ player_tema5 + '\n')
-        f.write('player_tema6 = '+ player_tema6 + '\n')
+        f.write('player_coins = ' + str(player_coins) + '\n')
+        f.write('player_record_super_easy = ' + player_record_super_easy + '\n')
+        f.write('player_record_easy = ' + player_record_easy + '\n')
+        f.write('player_record_medium = ' + player_record_medium + '\n')
+        f.write('player_record_hard = ' + player_record_hard + '\n')
+        f.write('player_record_super_hard = ' + player_record_super_hard + '\n')
+        f.write('player_tema_num = ' + player_tema_num + '\n')
+        f.write('player_tema_bg = ' + player_tema_bg + '\n')
+        f.write('player_tema1 = ' + player_tema1 + '\n')
+        f.write('player_tema2 = ' + player_tema2 + '\n')
+        f.write('player_tema3 = ' + player_tema3 + '\n')
+        f.write('player_tema4 = ' + player_tema4 + '\n')
+        f.write('player_tema5 = ' + player_tema5 + '\n')
+        f.write('player_tema6 = ' + player_tema6 + '\n')
 
 
 def MAIN():
@@ -122,14 +123,18 @@ def RECORDS():
         i.destroy()
     del list
     back = Button(text="Вернуться", font="Arial 12", bg='grey', command=MAIN)
-    label = Label(text='Очень легко: '+(player_record_super_easy if player_record_super_easy != '9:99:99.999999' else 'нет') +'\n'+
-                       'Легко: '+(player_record_easy if player_record_easy != '9:99:99.999999' else 'нет')+'\n'+
-                       'Средне: '+(player_record_medium if player_record_medium != '9:99:99.999999' else 'нет')+'\n'+
-                       'Сложно: '+(player_record_hard if player_record_hard != '9:99:99.999999' else 'нет')+'\n'+
-                       'Очень сложно: '+(player_record_super_hard if player_record_super_hard != '9:99:99.999999' else 'нет'),
+    label = Label(text='Очень легко: ' + (
+        player_record_super_easy if player_record_super_easy != '9:99:99.999999' else 'нет') + '\n' +
+                       'Легко: ' + (player_record_easy if player_record_easy != '9:99:99.999999' else 'нет') + '\n' +
+                       'Средне: ' + (
+                           player_record_medium if player_record_medium != '9:99:99.999999' else 'нет') + '\n' +
+                       'Сложно: ' + (player_record_hard if player_record_hard != '9:99:99.999999' else 'нет') + '\n' +
+                       'Очень сложно: ' + (
+                           player_record_super_hard if player_record_super_hard != '9:99:99.999999' else 'нет'),
                   font='Arial 16')
     label.pack()
     back.pack()
+
 
 def STORE():
     root.title('Магазин')
@@ -150,6 +155,7 @@ def STORE():
     for i in list:
         i.destroy()
     del list
+
     def buy1():
         global player_coins
         global player_tema1
@@ -226,8 +232,9 @@ def STORE():
                 tema6_buy['text'] = 'Куплено'
                 tema6_buy['bg'] = 'grey'
                 player_tema6 = 'Куплено'
-        balance['text'] = "Ваш баланс: "+str(player_coins)
+        balance['text'] = "Ваш баланс: " + str(player_coins)
         save_param()
+
     def buy3():
         global player_tema1
         global player_tema2
@@ -266,8 +273,9 @@ def STORE():
                 tema6_buy['text'] = 'Куплено'
                 tema6_buy['bg'] = 'grey'
                 player_tema6 = 'Куплено'
-        balance['text'] = "Ваш баланс: "+str(player_coins)
+        balance['text'] = "Ваш баланс: " + str(player_coins)
         save_param()
+
     def buy4():
         global player_coins
         global player_tema1
@@ -306,8 +314,9 @@ def STORE():
                 tema6_buy['text'] = 'Куплено'
                 tema6_buy['bg'] = 'grey'
                 player_tema6 = 'Куплено'
-        balance['text'] = "Ваш баланс: "+str(player_coins)
+        balance['text'] = "Ваш баланс: " + str(player_coins)
         save_param()
+
     def buy5():
         global player_coins
         global player_tema1
@@ -346,8 +355,9 @@ def STORE():
                 tema6_buy['text'] = 'Куплено'
                 tema6_buy['bg'] = 'grey'
                 player_tema6 = 'Куплено'
-        balance['text'] = "Ваш баланс: "+str(player_coins)
+        balance['text'] = "Ваш баланс: " + str(player_coins)
         save_param()
+
     def buy6():
         global player_coins
         global player_tema1
@@ -386,11 +396,11 @@ def STORE():
                 tema2_buy['text'] = 'Куплено'
                 tema2_buy['bg'] = 'grey'
                 player_tema2 = 'Куплено'
-        balance['text'] = "Ваш баланс: "+str(player_coins)
+        balance['text'] = "Ваш баланс: " + str(player_coins)
         save_param()
 
     title = Label(text="МАГАЗИН", justify=CENTER, font="Arial 20", fg="yellow", bg='blue')
-    balance = Label(text="Ваш баланс: "+str(player_coins), font="Arial 12", bg='grey')
+    balance = Label(text="Ваш баланс: " + str(player_coins), font="Arial 12", bg='grey')
     back = Button(text="Вернуться", font="Arial 12", bg='grey', command=MAIN)
     frame1 = Frame(root, bg='grey', bd=5)
     frame2 = Frame(root, bg='black', bd=5)
@@ -399,18 +409,30 @@ def STORE():
     label1 = Label(frame1, text="\n\n\n\n", bg='grey')
     temi = Button(frame1, text='    Темы    ', font="Arial 20")
     usilenia = Button(frame1, text=' Усиления \n(в разработке)', font="Arial 20")
-    tema1 = Label(frame2, text="1. Тема №1\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT, font="Arial 12")
-    tema1_buy = Button(frame2, text=player_tema1, bg=('yellow' if player_tema1 == 'Выбрано' else('grey' if player_tema1 == 'Куплено' else 'white')), command=buy1)
-    tema2 = Label(frame2, text="\n2. Тема №2\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT, font="Arial 12")
-    tema2_buy = Button(frame2, text=player_tema2, command=buy2, bg=('yellow' if player_tema2 == 'Выбрано' else('grey' if player_tema2 == 'Куплено' else 'white')))
-    tema3 = Label(frame2, text="\n3. Тема №3\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT, font="Arial 12")
-    tema3_buy = Button(frame2, text=player_tema3, command=buy3, bg=('yellow' if player_tema3 == 'Выбрано' else('grey' if player_tema3 == 'Куплено' else 'white')))
-    tema4 = Label(frame3, text="4. Тема №4\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT, font="Arial 12")
-    tema4_buy = Button(frame3, text=player_tema4, command=buy4, bg=('yellow' if player_tema4 == 'Выбрано' else('grey' if player_tema4 == 'Куплено' else 'white')))
-    tema5 = Label(frame3, text="\n5. Тема №5\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT, font="Arial 12")
-    tema5_buy = Button(frame3, text=player_tema5, command=buy5, bg=('yellow' if player_tema5 == 'Выбрано' else('grey' if player_tema5 == 'Куплено' else 'white')))
-    tema6 = Label(frame3, text="\n6. Тема №6\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT,font="Arial 12")
-    tema6_buy = Button(frame3, text=player_tema6, command=buy6, bg=('yellow' if player_tema6 == 'Выбрано' else('grey' if player_tema6 == 'Куплено' else 'white')))
+    tema1 = Label(frame2, text="1. Тема №1\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT,
+                  font="Arial 12")
+    tema1_buy = Button(frame2, text=player_tema1, bg=(
+        'yellow' if player_tema1 == 'Выбрано' else ('grey' if player_tema1 == 'Куплено' else 'white')), command=buy1)
+    tema2 = Label(frame2, text="\n2. Тема №2\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT,
+                  font="Arial 12")
+    tema2_buy = Button(frame2, text=player_tema2, command=buy2, bg=(
+        'yellow' if player_tema2 == 'Выбрано' else ('grey' if player_tema2 == 'Куплено' else 'white')))
+    tema3 = Label(frame2, text="\n3. Тема №3\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT,
+                  font="Arial 12")
+    tema3_buy = Button(frame2, text=player_tema3, command=buy3, bg=(
+        'yellow' if player_tema3 == 'Выбрано' else ('grey' if player_tema3 == 'Куплено' else 'white')))
+    tema4 = Label(frame3, text="4. Тема №4\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT,
+                  font="Arial 12")
+    tema4_buy = Button(frame3, text=player_tema4, command=buy4, bg=(
+        'yellow' if player_tema4 == 'Выбрано' else ('grey' if player_tema4 == 'Куплено' else 'white')))
+    tema5 = Label(frame3, text="\n5. Тема №5\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT,
+                  font="Arial 12")
+    tema5_buy = Button(frame3, text=player_tema5, command=buy5, bg=(
+        'yellow' if player_tema5 == 'Выбрано' else ('grey' if player_tema5 == 'Куплено' else 'white')))
+    tema6 = Label(frame3, text="\n6. Тема №6\nСтоимость: 500 голды", bg='black', fg='orange', justify=LEFT,
+                  font="Arial 12")
+    tema6_buy = Button(frame3, text=player_tema6, command=buy6, bg=(
+        'yellow' if player_tema6 == 'Выбрано' else ('grey' if player_tema6 == 'Куплено' else 'white')))
     panel1 = Label(frame2, image=img1)
     panel2 = Label(frame2, image=img2)
     panel3 = Label(frame2, image=img3)
@@ -465,6 +487,7 @@ def GAME_SETTING():
     for i in list:
         i.destroy()
     del list
+
     def p1_command():
         global num_poradok
         p1['bg'] = 'yellow'
@@ -475,6 +498,7 @@ def GAME_SETTING():
         lvl3['state'] = NORMAL
         lvl4['state'] = NORMAL
         lvl5['state'] = NORMAL
+
     def p2_command():
         global num_poradok
         p2['bg'] = 'yellow'
@@ -485,16 +509,22 @@ def GAME_SETTING():
         lvl3['state'] = NORMAL
         lvl4['state'] = NORMAL
         lvl5['state'] = NORMAL
+
     def game1():
         GAME('очень легко')
+
     def game2():
         GAME('легко')
+
     def game3():
         GAME('средне')
+
     def game4():
         GAME('сложно')
+
     def game5():
         GAME('очень сложно')
+
     vibor_poradka = Label(text="Выбирите порядок чисел: ", font="Arial 20")
     p1 = Button(text='Обычный', font="Arial 16", command=p1_command)
     p2 = Button(text='Обратный', font="Arial 16", command=p2_command)
@@ -516,7 +546,7 @@ def GAME_SETTING():
 
 
 def GAME(record_type):
-    root.title('Игра - '+record_type)
+    root.title('Игра - ' + record_type)
     global num_poradok
     list1 = root.pack_slaves()
     for i in list1:
@@ -543,10 +573,10 @@ def GAME(record_type):
         player_record = player_record_super_hard
         matrix_size = 15
     cell_size = 40
-    canvas_size = cell_size*matrix_size
+    canvas_size = cell_size * matrix_size
     matrix = []
     numbers = []
-    num_now = 1 if num_poradok == 1 else matrix_size*matrix_size
+    num_now = 1 if num_poradok == 1 else matrix_size * matrix_size
     errors = 0
     score = '9:99:99.999999'
 
@@ -576,10 +606,11 @@ def GAME(record_type):
     def MAIN00():
         nonlocal num_now
         nonlocal matrix_size
-        if (num_now != matrix_size**2) if num_poradok == 1 else (num_now != 1):
+        if (num_now != matrix_size ** 2) if num_poradok == 1 else (num_now != 1):
             MAIN()
         else:
             MAIN0()
+
     def MAIN0():
         list = root.pack_slaves()
         for i in list:
@@ -591,15 +622,14 @@ def GAME(record_type):
     out_widget.pack()
     num_now_widget = Label(text=str(num_now), font=("Arial", 20))
     num_now_widget.pack()
-    c = Canvas(root, width=canvas_size+1, height=canvas_size+1, bg=player_tema_bg)
+    c = Canvas(root, width=canvas_size + 1, height=canvas_size + 1, bg=player_tema_bg)
     c.pack()
     results_widget = Label(text='', font=("Arial", 20))
     play_again_widget = Button(text="Играть снова", bg='red', font='Arial 24', command=GAME0)
 
-
     def create_matrix():
         nonlocal numbers
-        numbers = list(range(1, (matrix_size**2)+1))
+        numbers = list(range(1, (matrix_size ** 2) + 1))
         random.shuffle(numbers)
 
         kjj = 0
@@ -612,18 +642,17 @@ def GAME(record_type):
         kjj = 0
         for i in range(matrix_size):
             for j in range(matrix_size):
-                x1 = i*cell_size+2
-                x2 = j*cell_size+2
-                y1 = x1+cell_size
-                y2 = x2+cell_size
+                x1 = i * cell_size + 2
+                x2 = j * cell_size + 2
+                y1 = x1 + cell_size
+                y2 = x2 + cell_size
                 c.create_rectangle(x1, x2, y1, y2)
-                c.create_text(x1+cell_size/2, x2+cell_size/2,
+                c.create_text(x1 + cell_size / 2, x2 + cell_size / 2,
                               text=str(matrix[i][j]),
                               fill=player_tema_num,
                               font=('Arial', 16))
                 kjj += 1
         del kjj
-
 
     def click(event):
         nonlocal num_now
@@ -652,7 +681,7 @@ def GAME(record_type):
             else:
                 num_now -= 1
             plus_coins += 2
-            if (matrix[i][j] == matrix_size**2) if num_poradok == 1 else (matrix[i][j] == 1):
+            if (matrix[i][j] == matrix_size ** 2) if num_poradok == 1 else (matrix[i][j] == 1):
                 game_time = datetime.now() - start
                 list = root.pack_slaves()
                 for i in list:

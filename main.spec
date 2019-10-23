@@ -23,7 +23,6 @@ a.datas += [('theme1.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\
             ('err.wav','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\err.wav', "Data"),
             ('click.mp3','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\click.mp3', "Data"),
             ('win.mp3','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\win.mp3', "Data"),
-            ('info.txt','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\info.txt', "Data"),
             ('bg_img.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\bg_img.gif', "Data")]
 
 pyz = PYZ(a.pure, a.zipped_data,

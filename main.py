@@ -56,20 +56,20 @@ class FastNumbers:
         self.theme4 = info_list[11][1]
         self.theme5 = info_list[12][1]
         self.theme6 = info_list[13][1]
-        self.bg_img = PhotoImage(file=self.resource_path('img\\bg_img.gif'))
-        self.img1 = PhotoImage(file=self.resource_path('img\\theme6.gif'))
-        self.img2 = PhotoImage(file=self.resource_path('img\\theme2.gif'))
-        self.img3 = PhotoImage(file=self.resource_path('img\\theme3.gif'))
-        self.img4 = PhotoImage(file=self.resource_path('img\\theme4.gif'))
-        self.img5 = PhotoImage(file=self.resource_path('img\\theme5.gif'))
-        self.img6 = PhotoImage(file=self.resource_path('img\\theme1.gif'))
+        self.bg_img = PhotoImage(file=self.resource_path('bg_img.gif'))
+        self.img1 = PhotoImage(file=self.resource_path('theme6.gif'))
+        self.img2 = PhotoImage(file=self.resource_path('theme2.gif'))
+        self.img3 = PhotoImage(file=self.resource_path('theme3.gif'))
+        self.img4 = PhotoImage(file=self.resource_path('theme4.gif'))
+        self.img5 = PhotoImage(file=self.resource_path('theme5.gif'))
+        self.img6 = PhotoImage(file=self.resource_path('theme1.gif'))
 
     def resource_path(self, relative_path):
         try:
             base_path = sys._MEIPASS
         except Exception:
             base_path = os.path.abspath('.')
-        return os.path.join(base_path, 'resourсes', relative_path)
+        return os.path.join(base_path, relative_path)
 
     def save_info(self):
         with open(self.info_path, 'w', encoding='utf-8') as f:
@@ -178,7 +178,7 @@ class FastNumbers:
 
         root.title('Настройки игрового режима')
         self.clear()
-        mixer.music.load(self.resource_path('sounds\\click.mp3'))
+        mixer.music.load(self.resource_path('click.mp3'))
         mixer.music.play()
         
         seq = 1
@@ -236,7 +236,7 @@ class FastNumbers:
             game_time = datetime.now() - start_time
             root.title('Результаты')
             self.clear()
-            mixer.music.load(self.resource_path('sounds\\win.mp3'))
+            mixer.music.load(self.resource_path('win.mp3'))
             mixer.music.play()
             
             score = str(game_time)
@@ -268,7 +268,7 @@ class FastNumbers:
         def click(event):
             nonlocal next_num, score, record, errors, current_coins
 
-            mixer.music.load(self.resource_path('sounds\\click.mp3'))
+            mixer.music.load(self.resource_path('click.mp3'))
             mixer.music.play()
 
             x, y = event.x, event.y
@@ -282,10 +282,10 @@ class FastNumbers:
                 else:
                     next_num_widget['text'] = f'Следующее число: {next_num}'
             elif not ((matrix[i][j] < next_num) if seq == 1 else (matrix[i][j] > next_num)):
-                mixer.music.load(self.resource_path('sounds\\err.wav'))
+                mixer.music.load(self.resource_path('err.wav'))
                 mixer.music.play()
                 errors += 1
-                current_coins -= 2
+                # current_coins -= 2
 
         def run_timer():
             time = str(datetime.now() - start_time)[:-7]

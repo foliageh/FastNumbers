@@ -2,9 +2,8 @@
 
 block_cipher = None
 
-
-a = Analysis(['C:\\Users\\for_project_kvant\\main.py'],
-             pathex=['C:\\Users\\for_project_kvant'],
+a = Analysis(['C:\\Users\\exe-builder\\FastNumbers\\main.py'],
+             pathex=['C:\\Users\\exe-builder\\FastNumbers'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -15,10 +14,17 @@ a = Analysis(['C:\\Users\\for_project_kvant\\main.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-
 		
-		
-a.datas += [('thema1.gif','C:\\Users\\for_project_kvant\\thema1.gif', "Data"), ('thema2.gif','C:\\Users\\for_project_kvant\\thema2.gif', "Data"), ('thema3.gif','C:\\Users\\for_project_kvant\\thema3.gif', "Data"), ('thema4.gif','C:\\Users\\for_project_kvant\\thema4.gif', "Data"), ('thema5.gif','C:\\Users\\for_project_kvant\\thema5.gif', "Data"), ('thema6.gif','C:\\Users\\for_project_kvant\\thema6.gif', "Data"), ('err.wav','C:\\Users\\for_project_kvant\\err.wav', "Data"), ('click.mp3','C:\\Users\\for_project_kvant\\click.mp3', "Data"), ('win.mp3','C:\\Users\\for_project_kvant\\win.mp3', "Data"), ('infa.txt','C:\\Users\\for_project_kvant\\infa.txt', "Data"), ('iconka.gif','C:\\Users\\for_project_kvant\\iconka.gif', "Data")]
+a.datas += [('theme1.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme1.gif', "Data"),('theme2.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme2.gif', "Data"),
+            ('theme3.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme3.gif', "Data"),
+            ('theme4.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme4.gif', "Data"),
+            ('theme5.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme5.gif', "Data"),
+            ('theme6.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme6.gif', "Data"),
+            ('err.wav','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\err.wav', "Data"),
+            ('click.mp3','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\click.mp3', "Data"),
+            ('win.mp3','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\win.mp3', "Data"),
+            ('info.txt','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\info.txt', "Data"),
+            ('bg_img.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\bg_img.gif', "Data")]
 
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
@@ -28,7 +34,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='FastNumbers(beta)',
+          name='FastNumbers',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,

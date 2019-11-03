@@ -15,7 +15,8 @@ a = Analysis(['C:\\Users\\exe-builder\\FastNumbers\\main.py'],
              cipher=block_cipher,
              noarchive=False)
 		
-a.datas += [('theme1.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme1.gif', "Data"),('theme2.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme2.gif', "Data"),
+a.datas += [('theme1.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme1.gif', "Data"),
+            ('theme2.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme2.gif', "Data"),
             ('theme3.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme3.gif', "Data"),
             ('theme4.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme4.gif', "Data"),
             ('theme5.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme5.gif', "Data"),

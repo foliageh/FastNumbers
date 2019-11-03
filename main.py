@@ -9,18 +9,20 @@ from tkinter import *
 
 class FastNumbers:
     def __init__(self):
+        """Инициализация переменных, подготовка к запуску приложения."""
         root.title('Быстрые цифры')
         root.resizable(width=False, height=False)
         mixer.init()
 
-        roaming = os.getenv('APPDATA')
-        path = os.path.dirname(roaming) + '\\Local\\FastNumbers'
+        # Получение пути для сохранения данных о прогрессе
+        path = os.path.dirname(os.getenv('APPDATA')) + '\\Local\\FastNumbers'
         try:
             os.mkdir(path)
         except OSError:
             pass
-
         self.info_path = path + '\\info.txt'
+
+        # Запись данных о прогрессе при запуске игры в первый раз
         if not os.path.isfile(self.info_path):
             with open(self.info_path, 'w', encoding='utf-8') as f:
                 f.write('coins = 300\n')
@@ -37,7 +39,8 @@ class FastNumbers:
                 f.write('theme4 = Купить!\n')
                 f.write('theme5 = Купить!\n')
                 f.write('theme6 = Купить!\n')
-        
+
+        # Считывание данных о прогрессе
         info_list = []
         with open(self.info_path, 'r', encoding='utf-8') as f:
             for line in f:
@@ -56,22 +59,26 @@ class FastNumbers:
         self.theme4 = info_list[11][1]
         self.theme5 = info_list[12][1]
         self.theme6 = info_list[13][1]
-        self.bg_img = PhotoImage(file=self.resource_path('bg_img.gif'))
-        self.img1 = PhotoImage(file=self.resource_path('theme6.gif'))
-        self.img2 = PhotoImage(file=self.resource_path('theme2.gif'))
-        self.img3 = PhotoImage(file=self.resource_path('theme3.gif'))
-        self.img4 = PhotoImage(file=self.resource_path('theme4.gif'))
-        self.img5 = PhotoImage(file=self.resource_path('theme5.gif'))
-        self.img6 = PhotoImage(file=self.resource_path('theme1.gif'))
+
+        # Инициализация изображений
+        self.bg_img = PhotoImage(file=self.resource_path('img\\bg_img.gif'))
+        self.img1 = PhotoImage(file=self.resource_path('img\\theme6.gif'))
+        self.img2 = PhotoImage(file=self.resource_path('img\\theme2.gif'))
+        self.img3 = PhotoImage(file=self.resource_path('img\\theme3.gif'))
+        self.img4 = PhotoImage(file=self.resource_path('img\\theme4.gif'))
+        self.img5 = PhotoImage(file=self.resource_path('img\\theme5.gif'))
+        self.img6 = PhotoImage(file=self.resource_path('img\\theme1.gif'))
 
     def resource_path(self, relative_path):
+        """Возвращает путь к файлу."""
         try:
             base_path = sys._MEIPASS
         except Exception:
             base_path = os.path.abspath('.')
-        return os.path.join(base_path, relative_path)
+        return os.path.join(base_path, 'resourсes', relative_path)
 
     def save_info(self):
+        """Сохраняет информацию о прогрессе."""
         with open(self.info_path, 'w', encoding='utf-8') as f:
             f.write(f'coins = {self.coins}\n')
             f.write(f'record_super_easy = {self.record_super_easy}\n')
@@ -89,12 +96,14 @@ class FastNumbers:
             f.write(f'theme6 = {self.theme6}\n')
 
     def clear(self):
+        """Очищает экран, удаляя все виджеты."""
         for i in root.pack_slaves():
             i.destroy()
         for i in root.grid_slaves():
             i.destroy()
 
     def MAIN(self):
+        """Создает главнй экран приложения."""
         root.title('Быстрые цифры')
         self.clear()
 
@@ -104,6 +113,7 @@ class FastNumbers:
         Button(text='Рекорды', font='arial 20', bg='blue', fg='white', command=self.RECORDS).grid(row=3, column=1)
 
     def RECORDS(self):
+        """Создает окно с рекордами."""
         root.title('Рекорды')
         self.clear()
 
@@ -117,7 +127,12 @@ class FastNumbers:
         Button(text='Вернуться', font='arial 12', bg='grey', command=self.MAIN).pack()
 
     def STORE(self):
+        """Создает окно с магазином.
+        Магазин предназначен для покупки цветовых схем игрового поля.
+
+        """
         def buy_themes(i):
+            """Осуществляет покупку игровой темы."""
             themes = [row[2] for row in themes_list[1:]]
             thms = [self.theme1, self.theme2, self.theme3, self.theme4, self.theme5, self.theme6]
             if (themes[i]['text'] == 'Купить!' and self.coins >= 500) or themes[i]['text'] == 'Куплено':
@@ -142,33 +157,35 @@ class FastNumbers:
         root.title('Магазин')
         self.clear()
 
-        balance = Label(text=f'Ваш баланс: {self.coins}', font='arial 12', bg='grey')
-        balance.grid(row=0, column=0)
-        Button(text='Вернуться', font='arial 12', bg='grey', command=self.MAIN).grid(row=0, column=2)
-        Label(text='МАГАЗИН', font='arial 20', fg='yellow', bg='blue').grid(row=1, column=0, columnspan=3)
-        frame1 = Frame(root, bg='grey', bd=5)
+        balance = Label(text=f'Ваш баланс: {self.coins}', font='arial 14', bg='grey')
+        balance.grid(row=0, column=0, sticky='nw')
+        Button(text='Вернуться', font='arial 12', bg='grey', command=self.MAIN).grid(row=0, column=1, sticky='ne')
+        Label(text='МАГАЗИН', font='arial 20', fg='yellow', bg='blue').grid(row=1, column=0, columnspan=2)
+        frame1 = Frame(root, bg='black', bd=5)
         frame2 = Frame(root, bg='black', bd=5)
-        frame3 = Frame(root, bg='black', bd=5)
-        frame1.grid(row=2, column=0, rowspan=30, sticky='ns')
+        frame1.grid(row=2, column=0)
         frame2.grid(row=2, column=1)
-        frame3.grid(row=2, column=2)
 
+        # Создание списка виджетов с данными об объектах покупки
         themes_list = [None]
         themes_names = [None, self.theme1, self.theme2, self.theme3, self.theme4, self.theme5, self.theme6]
         img_names = [None, self.img1, self.img2, self.img3, self.img4, self.img5, self.img6]
         for i in range(1, 7):
             theme, img = themes_names[i], img_names[i]
-            themes_list.append([Label(frame2 if i < 4 else frame3, bg='black', fg='orange', justify='left', font='arial 12',
+            themes_list.append([Label(frame1 if i < 4 else frame2, bg='black', fg='orange', justify='left', font='arial 12',
                                       text=f'{i}. Тема №{i}\n' + ('Тема по умолчанию     ' if i == 1 else 'Стоимость: 500 монет')),
-                                Label(frame2 if i < 4 else frame3, image=img),
-                                Button(frame2 if i < 4 else frame3, text=theme, command=partial(buy_themes, i-1),
+                                Label(frame1 if i < 4 else frame2, image=img),
+                                Button(frame1 if i < 4 else frame2, text=theme, command=partial(buy_themes, i-1),
                                        bg=('yellow' if theme == 'Выбрано' else ('grey' if theme == 'Куплено' else 'white')))])
             for j in themes_list[i]:
                 j.pack()
 
     def GAME_SETTINGS(self):
-        def choice_seq(seq):
-            seq = seq
+        """Создает окно с выбором параметров игры."""
+        def choice_seq(sequence):
+            nonlocal seq
+
+            seq = sequence
             if seq == 1:
                 p1['bg'], p2['bg'] = 'yellow', 'white'
             else:
@@ -178,7 +195,7 @@ class FastNumbers:
 
         root.title('Настройки игрового режима')
         self.clear()
-        mixer.music.load(self.resource_path('click.mp3'))
+        mixer.music.load(self.resource_path('sounds\\click.mp3'))
         mixer.music.play()
         
         seq = 1
@@ -195,7 +212,15 @@ class FastNumbers:
         Button(text='Очень сложно', font='arial 16', state=DISABLED, command=lambda: self.GAME('очень сложно', seq)).grid(row=3, column=4)
 
     def GAME(self, type, seq):
+        """Создает окно с игровым полем, осущесвляет игровой процесс.
+
+        Аргументы:
+          type - сложность игры (от "очень легко" до "очень сложно")
+          seq - последовательность чисел (1 - прямая, -1 - обратная)
+
+        """
         def play_again():
+            """Запускает новую игру, сохраняя изначальные параметры"""
             if type == 'очень легко':
                 self.record_super_easy = record
             elif type == 'легко':
@@ -209,8 +234,8 @@ class FastNumbers:
             self.GAME(type, seq)
 
         def create_matrix():
+            """Создает матрицу со случайно перемешанными числами"""
             random.shuffle(numbers)
-
             k = 0
             for i in range(matrix_size):
                 matrix.append([])
@@ -218,6 +243,7 @@ class FastNumbers:
                     matrix[i].append(numbers[k])
                     k += 1
 
+            # Отображение чисел на игровом поле
             for i in range(matrix_size):
                 for j in range(matrix_size):
                     x1 = i * cell_size + 2
@@ -231,12 +257,13 @@ class FastNumbers:
                                       font='arial 16')
                     
         def win():
+            """Создает окно с информациее о победе."""
             nonlocal score, record
             
             game_time = datetime.now() - start_time
             root.title('Результаты')
             self.clear()
-            mixer.music.load(self.resource_path('win.mp3'))
+            mixer.music.load(self.resource_path('sounds\\win.mp3'))
             mixer.music.play()
             
             score = str(game_time)
@@ -266,15 +293,21 @@ class FastNumbers:
             self.save_info()
 
         def click(event):
+            """Обрабатывает нажатия по игровому полю."""
             nonlocal next_num, score, record, errors, current_coins
 
-            mixer.music.load(self.resource_path('click.mp3'))
+            mixer.music.load(self.resource_path('sounds\\click.mp3'))
             mixer.music.play()
 
             x, y = event.x, event.y
             i, j = x // cell_size, y // cell_size
 
             if matrix[i][j] == next_num:
+                # x1 = i * cell_size + 2
+                # x2 = j * cell_size + 2
+                # y1 = x1 + cell_size
+                # y2 = x2 + cell_size
+                # field.create_rectangle(x1, x2, y1, y2, fill=self.theme_bg)
                 next_num += seq
                 current_coins += 2
                 if (matrix[i][j] == matrix_size ** 2) if seq == 1 else (matrix[i][j] == 1):
@@ -282,12 +315,13 @@ class FastNumbers:
                 else:
                     next_num_widget['text'] = f'Следующее число: {next_num}'
             elif not ((matrix[i][j] < next_num) if seq == 1 else (matrix[i][j] > next_num)):
-                mixer.music.load(self.resource_path('err.wav'))
+                mixer.music.load(self.resource_path('sounds\\err.wav'))
                 mixer.music.play()
                 errors += 1
                 # current_coins -= 2
 
         def run_timer():
+            """Отображает игрового время."""
             time = str(datetime.now() - start_time)[:-7]
             if time:
                 timer['text'] = f'Время: {time}'
@@ -296,6 +330,7 @@ class FastNumbers:
         root.title('Игра: ' + type)
         self.clear()
 
+        # Инициализация переменных, необходимых для игры
         if type == 'очень легко':
             record = self.record_super_easy
             matrix_size = 5

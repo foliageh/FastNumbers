@@ -61,13 +61,13 @@ class FastNumbers:
         self.theme6 = info_list[13][1]
 
         # Инициализация изображений
-        self.bg_img = PhotoImage(file=self.resource_path('bg_img.gif'))
-        self.img1 = PhotoImage(file=self.resource_path('theme1.gif'))
-        self.img2 = PhotoImage(file=self.resource_path('theme2.gif'))
-        self.img3 = PhotoImage(file=self.resource_path('theme3.gif'))
-        self.img4 = PhotoImage(file=self.resource_path('theme4.gif'))
-        self.img5 = PhotoImage(file=self.resource_path('theme5.gif'))
-        self.img6 = PhotoImage(file=self.resource_path('theme6.gif'))
+        self.bg_img = PhotoImage(file=self.resource_path('img\\bg_img.gif'))
+        self.img1 = PhotoImage(file=self.resource_path('img\\theme1.gif'))
+        self.img2 = PhotoImage(file=self.resource_path('img\\theme2.gif'))
+        self.img3 = PhotoImage(file=self.resource_path('img\\theme3.gif'))
+        self.img4 = PhotoImage(file=self.resource_path('img\\theme4.gif'))
+        self.img5 = PhotoImage(file=self.resource_path('img\\theme5.gif'))
+        self.img6 = PhotoImage(file=self.resource_path('img\\theme6.gif'))
 
     def resource_path(self, relative_path):
         """Возвращает путь к файлу."""
@@ -75,7 +75,7 @@ class FastNumbers:
             base_path = sys._MEIPASS
         except Exception:
             base_path = os.path.abspath('.')
-        return os.path.join(base_path, relative_path)
+        return os.path.join(base_path, 'resourсes', relative_path)
 
     def save_info(self):
         """Сохраняет информацию о прогрессе."""
@@ -104,7 +104,7 @@ class FastNumbers:
 
     def play_sound(self, filename):
         """Воспроизводит звуковой файл."""
-        mixer.music.load(self.resource_path(filename))
+        mixer.music.load(self.resource_path('sounds\\' + filename))
         mixer.music.play()
 
     def MAIN(self):

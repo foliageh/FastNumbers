@@ -62,12 +62,12 @@ class FastNumbers:
 
         # Инициализация изображений
         self.bg_img = PhotoImage(file=self.resource_path('bg_img.gif'))
-        self.img1 = PhotoImage(file=self.resource_path('theme6.gif'))
+        self.img1 = PhotoImage(file=self.resource_path('theme1.gif'))
         self.img2 = PhotoImage(file=self.resource_path('theme2.gif'))
         self.img3 = PhotoImage(file=self.resource_path('theme3.gif'))
         self.img4 = PhotoImage(file=self.resource_path('theme4.gif'))
         self.img5 = PhotoImage(file=self.resource_path('theme5.gif'))
-        self.img6 = PhotoImage(file=self.resource_path('theme1.gif'))
+        self.img6 = PhotoImage(file=self.resource_path('theme6.gif'))
 
     def resource_path(self, relative_path):
         """Возвращает путь к файлу."""
@@ -101,6 +101,11 @@ class FastNumbers:
             i.destroy()
         for i in root.grid_slaves():
             i.destroy()
+
+    def play_sound(self, filename):
+        """Воспроизводит звуковой файл."""
+        mixer.music.load(self.resource_path(filename))
+        mixer.music.play()
 
     def MAIN(self):
         """Создает главнй экран приложения."""
@@ -142,8 +147,8 @@ class FastNumbers:
                 themes[i]['text'] = 'Выбрано'
                 themes[i]['bg'] = 'yellow'
                 thms[i] = 'Выбрано'
-                self.theme_num = 'yellow'
-                self.theme_bg = 'green'
+                self.theme_num = colors[i][0]
+                self.theme_bg = colors[i][1]
                 p = -1
                 for j in themes[:i] + themes[i+1:]:
                     p += (2 if p == i else 1)
@@ -170,6 +175,7 @@ class FastNumbers:
         themes_list = [None]
         themes_names = [None, self.theme1, self.theme2, self.theme3, self.theme4, self.theme5, self.theme6]
         img_names = [None, self.img1, self.img2, self.img3, self.img4, self.img5, self.img6]
+        colors = [['black', 'white'], ['white', 'blue'], ['yellow', 'purple'], ['yellow', 'green'], ['green', 'beige'], ['orange', 'black']]
         for i in range(1, 7):
             theme, img = themes_names[i], img_names[i]
             themes_list.append([Label(frame1 if i < 4 else frame2, bg='black', fg='orange', justify='left', font='arial 12',
@@ -195,8 +201,6 @@ class FastNumbers:
 
         root.title('Настройки игрового режима')
         self.clear()
-        mixer.music.load(self.resource_path('click.mp3'))
-        mixer.music.play()
 
         seq = 1
         Label(text='Выбирите порядок чисел: ', font='arial 20').grid(row=0, column=0, columnspan=5)
@@ -220,7 +224,7 @@ class FastNumbers:
 
         """
         def play_again():
-            """Запускает новую игру, сохраняя изначальные параметры"""
+            """Запускает новую игру, сохраняя изначальные параметры."""
             if type == 'очень легко':
                 self.record_super_easy = record
             elif type == 'легко':
@@ -234,7 +238,7 @@ class FastNumbers:
             self.GAME(type, seq)
 
         def create_matrix():
-            """Создает матрицу со случайно перемешанными числами"""
+            """Создает матрицу со случайно перемешанными числами."""
             random.shuffle(numbers)
             k = 0
             for i in range(matrix_size):
@@ -263,8 +267,7 @@ class FastNumbers:
             game_time = datetime.now() - start_time
             root.title('Результаты')
             self.clear()
-            mixer.music.load(self.resource_path('win.mp3'))
-            mixer.music.play()
+            self.play_sound('win.mp3')
 
             score = str(game_time)
             if score < record:
@@ -296,8 +299,7 @@ class FastNumbers:
             """Обрабатывает нажатия по игровому полю."""
             nonlocal next_num, score, record, errors, current_coins
 
-            mixer.music.load(self.resource_path('click.mp3'))
-            mixer.music.play()
+            self.play_sound('click.mp3')
 
             x, y = event.x, event.y
             i, j = x // cell_size, y // cell_size
@@ -315,8 +317,7 @@ class FastNumbers:
                 else:
                     next_num_widget['text'] = f'Следующее число: {next_num}'
             elif not ((matrix[i][j] < next_num) if seq == 1 else (matrix[i][j] > next_num)):
-                mixer.music.load(self.resource_path('err.wav'))
-                mixer.music.play()
+                self.play_sound('err.wav')
                 errors += 1
                 # current_coins -= 2
 

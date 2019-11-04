@@ -21,10 +21,10 @@ a.datas += [('theme1.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\
             ('theme4.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme4.gif', "Data"),
             ('theme5.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme5.gif', "Data"),
             ('theme6.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\theme6.gif', "Data"),
+            ('bg_img.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\bg_img.gif', "Data"),
             ('err.wav','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\err.wav', "Data"),
             ('click.mp3','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\click.mp3', "Data"),
-            ('win.mp3','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\win.mp3', "Data"),
-            ('bg_img.gif','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\img\\bg_img.gif', "Data")]
+            ('win.mp3','C:\\Users\\exe-builder\\FastNumbers\\resourсes\\sounds\\win.mp3', "Data")]
 
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
@@ -39,5 +39,6 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
+          upx_exclude=['vcruntime140.dll'],
           runtime_tmpdir=None,
           console=False)

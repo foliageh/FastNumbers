@@ -112,10 +112,20 @@ class FastNumbers:
         root.title('Быстрые цифры')
         self.clear()
 
-        Label(image=self.bg_img).grid(row=0, column=0, rowspan=6)
-        Button(text='Играть!', font='arial 20', bg='orange', command=self.GAME_SETTINGS).grid(row=0, column=0, rowspan=6)
-        Button(text='Магазин', font='arial 20', bg='blue', fg='white', command=self.STORE).grid(row=2, column=1)
-        Button(text='Рекорды', font='arial 20', bg='blue', fg='white', command=self.RECORDS).grid(row=3, column=1)
+        Label(image=self.bg_img).grid(row=0, column=0, rowspan=7)
+        Button(text='Играть!', font='arial 20', bg='orange', command=self.GAME_SETTINGS).grid(row=0, column=0, rowspan=7)
+        Button(text='Магазин', width=8, font='arial 20', bg='blue', fg='white', command=self.STORE).grid(row=2, column=1)
+        Button(text='Рекорды', width=8, font='arial 20', bg='blue', fg='white', command=self.RECORDS).grid(row=3, column=1)
+        Button(text='Титры', width=8, font='arial 20', bg='blue', fg='white', command=self.CREDITS).grid(row=4, column=1)
+
+    def CREDITS(self):
+        """Создает окно с титрами."""
+        root.title('Титры')
+        self.clear()
+
+        Label(text='Автор идеи, дизайнер и программист:\nМуратов Михаил Александрович',
+              font='arial 16', justify='left').pack()
+        Button(text='Вернуться', font='arial 12', bg='grey', command=self.MAIN).pack()
 
     def RECORDS(self):
         """Создает окно с рекордами."""
@@ -128,7 +138,7 @@ class FastNumbers:
                    f'Средне: {self.record_medium if self.record_medium != bad else "нет"}\n' +
                    f'Сложно: {self.record_hard if self.record_hard != bad else "нет"}\n' +
                    f'Очень сложно: {self.record_super_hard if self.record_super_hard != bad else "нет"}',
-              font='arial 16').pack()
+              font='arial 16', justify='left').pack()
         Button(text='Вернуться', font='arial 12', bg='grey', command=self.MAIN).pack()
 
     def STORE(self):
@@ -209,14 +219,22 @@ class FastNumbers:
         p1.grid(row=1, column=0)
         p2.grid(row=1, column=1)
         Label(text='Выбирите режим игры: ', font='arial 20').grid(row=2, column=0, columnspan=5)
-        Button(text='Очень легко', font='arial 16', state=DISABLED, command=lambda: self.GAME('очень легко', seq)).grid(row=3, column=0)
-        Button(text='    Легко    ', font='arial 16', state=DISABLED, command=lambda: self.GAME('легко', seq)).grid(row=3, column=1)
-        Button(text='  Средне   ', font='arial 16', state=DISABLED, command=lambda: self.GAME('cредне', seq)).grid(row=3, column=2)
-        Button(text='  Сложно   ', font='arial 16', state=DISABLED, command=lambda: self.GAME('сложно', seq)).grid(row=3, column=3)
-        Button(text='Очень сложно', font='arial 16', state=DISABLED, command=lambda: self.GAME('очень сложно', seq)).grid(row=3, column=4)
+        Button(text='Очень легко', width=11, font='arial 16', state=DISABLED, command=lambda: self.GAME('очень легко', seq)).grid(row=3, column=0)
+        Button(text='Легко', width=11, font='arial 16', state=DISABLED, command=lambda: self.GAME('легко', seq)).grid(row=3, column=1)
+        Button(text='Средне', width=11, font='arial 16', state=DISABLED, command=lambda: self.GAME('средне', seq)).grid(row=3, column=2)
+        Button(text='Сложно', width=11, font='arial 16', state=DISABLED, command=lambda: self.GAME('сложно', seq)).grid(row=3, column=3)
+        Button(text='Очень сложно', width=11, font='arial 16', state=DISABLED, command=lambda: self.GAME('очень сложно', seq)).grid(row=3, column=4)
+        Label(text='Правила игры:', font='arial 20').grid(row=4, column=0, columnspan=5)
+        Label(text='В игре вы будите последовательно нажимать на цифры,\n'
+                   'разбросанные по полю в случайном порядке.\n'
+                   'Над полем будет показана цифра, которую нужно найти.\n'
+                   'Дойдите до последнего числа как можно быстрее,\n'
+                   'чтобы набрать больше монет.'
+                   '\nУдачной игры!',
+              font='arial 16').grid(row=5, column=0, columnspan=5)
 
     def GAME(self, type, seq):
-        """Создает окно с игровым полем, осущесвляет игровой процесс.
+        """Создает окно с игровым полем, осуществляет игровой процесс.
 
         Аргументы:
           type - сложность игры (от "очень легко" до "очень сложно")
@@ -258,7 +276,7 @@ class FastNumbers:
                     field.create_text(x1 + cell_size / 2, x2 + cell_size / 2,
                                       text=str(matrix[i][j]),
                                       fill=self.theme_num,
-                                      font='arial 16')
+                                      font='arial 32' if type == 'очень легко' else ('arial 24' if type == 'легко' else 'arial 16'))
 
         def win():
             """Создает окно с информациее о победе."""
@@ -305,11 +323,12 @@ class FastNumbers:
             i, j = x // cell_size, y // cell_size
 
             if matrix[i][j] == next_num:
-                # x1 = i * cell_size + 2
-                # x2 = j * cell_size + 2
-                # y1 = x1 + cell_size
-                # y2 = x2 + cell_size
-                # field.create_rectangle(x1, x2, y1, y2, fill=self.theme_bg)
+                if type == 'легко':
+                    x1 = i * cell_size + 2
+                    x2 = j * cell_size + 2
+                    y1 = x1 + cell_size
+                    y2 = x2 + cell_size
+                    field.create_rectangle(x1, x2, y1, y2, fill=self.theme_bg)
                 next_num += seq
                 current_coins += 2
                 if (matrix[i][j] == matrix_size ** 2) if seq == 1 else (matrix[i][j] == 1):
@@ -347,7 +366,7 @@ class FastNumbers:
         else:
             record = self.record_super_hard
             matrix_size = 15
-        cell_size = 40
+        cell_size = 80 if type == 'очень легко' else (60 if type == 'легко' else 40)#40
         field_size = cell_size * matrix_size
         matrix = []
         numbers = list(range(1, (matrix_size ** 2) + 1))

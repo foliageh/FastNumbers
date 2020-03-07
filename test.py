@@ -394,3 +394,4 @@ root = Tk()
 game = FastNumbers()
 game.MAIN()
 root.mainloop()
+###

@@ -2,7 +2,7 @@
 
 block_cipher = None
 
-a = Analysis(['C:\\Users\\exe-builder\\FastNumbers\\main_en_build.py'],
+a = Analysis(['C:\\Users\\exe-builder\\FastNumbers\\main_ru_build.py'],
              pathex=['C:\\Users\\exe-builder\\FastNumbers'],
              binaries=[],
              datas=[],

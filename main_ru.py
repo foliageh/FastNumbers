@@ -112,10 +112,10 @@ class FastNumbers:
         root.title('Быстрые цифры')
         self.clear()
 
-        Label(image=self.bg_img).grid(row=0, column=0, rowspan=6)
-        Button(text='Играть!', font='arial 20', bg='orange', command=self.GAME_SETTINGS).grid(row=0, column=0, rowspan=6)
-        Button(text='Магазин', font='arial 20', bg='blue', fg='white', command=self.STORE).grid(row=2, column=1)
-        Button(text='Рекорды', font='arial 20', bg='blue', fg='white', command=self.RECORDS).grid(row=3, column=1)
+        Label(image=self.bg_img).grid(row=0, column=0, rowspan=7)
+        Button(text='Играть!', font='arial 20', bg='orange', command=self.GAME_SETTINGS).grid(row=0, column=0, rowspan=7)
+        Button(text='Магазин', width=8, font='arial 20', bg='blue', fg='white', command=self.STORE).grid(row=2, column=1)
+        Button(text='Рекорды', width=8, font='arial 20', bg='blue', fg='white', command=self.RECORDS).grid(row=3, column=1)
         Button(text='Титры', width=8, font='arial 20', bg='blue', fg='white', command=self.CREDITS).grid(row=4, column=1)
 
     def CREDITS(self):
@@ -233,7 +233,7 @@ class FastNumbers:
                    '\nУдачной игры!',
               font='arial 16').grid(row=5, column=0, columnspan=5)
 
-def GAME(self, type, seq):
+    def GAME(self, type, seq):
         """Создает окно с игровым полем, осуществляет игровой процесс.
 
         Аргументы:
@@ -276,7 +276,7 @@ def GAME(self, type, seq):
                     field.create_text(x1 + cell_size / 2, x2 + cell_size / 2,
                                       text=str(matrix[i][j]),
                                       fill=self.theme_num,
-                                      font='arial 16')
+                                      font='arial 32' if type == 'очень легко' else ('arial 24' if type == 'легко' else 'arial 16'))
 
         def win():
             """Создает окно с информациее о победе."""
@@ -323,11 +323,12 @@ def GAME(self, type, seq):
             i, j = x // cell_size, y // cell_size
 
             if matrix[i][j] == next_num:
-                # x1 = i * cell_size + 2
-                # x2 = j * cell_size + 2
-                # y1 = x1 + cell_size
-                # y2 = x2 + cell_size
-                # field.create_rectangle(x1, x2, y1, y2, fill=self.theme_bg)
+                if type == 'легко':
+                    x1 = i * cell_size + 2
+                    x2 = j * cell_size + 2
+                    y1 = x1 + cell_size
+                    y2 = x2 + cell_size
+                    field.create_rectangle(x1, x2, y1, y2, fill=self.theme_bg)
                 next_num += seq
                 current_coins += 2
                 if (matrix[i][j] == matrix_size ** 2) if seq == 1 else (matrix[i][j] == 1):
@@ -365,7 +366,7 @@ def GAME(self, type, seq):
         else:
             record = self.record_super_hard
             matrix_size = 15
-        cell_size = 40
+        cell_size = 80 if type == 'очень легко' else (60 if type == 'легко' else 40)#40
         field_size = cell_size * matrix_size
         matrix = []
         numbers = list(range(1, (matrix_size ** 2) + 1))

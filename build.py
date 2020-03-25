@@ -4,7 +4,10 @@ import shutil
 os.chdir('C:\\Users\\Александр\\PycharmProjects\\FastNumbers')
 # Open cmd from admin and write - python C:\Users\Александр\PycharmProjects\FastNumbers\build.py
 
-lang = 'en'
+try:
+    lang = sys.argv[1]
+except:
+    lang = 'ru'
 
 with open(f'main_{lang}.py', 'r', encoding='utf-8') as f:
     s = f.read()

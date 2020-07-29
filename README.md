@@ -1,4 +1,9 @@
 # FastNumbers
+
+
+GAME PAGE ON ITCH: https://riders-on-the-storm.itch.io/fast-numbers
+
+
 Fast numbers is a simple game that helps you develop your attention and memory. Available for the Windows platform in Russian and English.
 
 Your goal is to click on the numbers one by one as fast as possible. After the end of the round, you will see the total time for which you passed the level, as well as the number of errors and coins awarded.

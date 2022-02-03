@@ -1,7 +1,7 @@
 # FastNumbers
 
 
-GAME PAGE ON ITCH: https://riders-on-the-storm.itch.io/fast-numbers
+GAME PAGE ON ITCH: https://foliageh.itch.io/fast-numbers
 
 
 Fast numbers is a simple game that helps you develop your attention and memory. Available for the Windows platform in Russian and English.
